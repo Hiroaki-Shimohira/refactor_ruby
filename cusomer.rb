@@ -11,18 +11,27 @@ class Customer
   end
 
   def statement
-    total_amount, frequent_renter_points = 0, 0
     result = "Rental Recode for #{@name}"
     @rentals.each do |element|
-      #レンタルポイントの加算
-      frequent_renter_points += element.frequent_renter_points
       #このレンタルの料金の表示
-      result += element.movie.title + element.charge.to_s
-      total_amount += element.charge
+      result += "\t" + element.movie.title + "\t" + element.charge.to_s + "\n"
     end
     #フッターの追加
     result += "Amount owed is #{total_amount}\n"
-    result += "you earned #{frequent_renter_points} frequent renter points"
+    result += "you earned #{total_frequent_rental_points} frequent renter points"
     result
   end
+
+  private
+  #料金の計算
+  def total_charge
+    @rentals.inject(0) {|sum, rental| sum + rental.charge}
+  end
+  #レンタルポイントの加算
+  def total_frequent_rental_points
+    @rentals.inject(0) {|sum, rental| sum + rental.frequent_renter_points}
+  end
 end
+
+
+

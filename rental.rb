@@ -17,4 +17,9 @@ class Rental
       result += (days_rented - 3)*1.5 if days_rented > 3
     end
   end
+
+  def frequent_rental_points
+      #新作を借りた場合のレンタルポイントの追加
+      (movie.price_code = Movie::NEW_RELEASE && days_rented > 1) ? 2 : 1
+  end
 end

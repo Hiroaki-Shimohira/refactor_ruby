@@ -9,3 +9,6 @@ class Movie
     @title, @price_code = title, price_code
   end
 end
+
+
+

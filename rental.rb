@@ -3,4 +3,25 @@ class Rental
   def initialize(movie, days_rented)
     @movie, @days_rented = movie, days_rented
   end
+
+  def charge
+    result = 0
+    case movie.price_code
+    when Movie::REGULAR
+      result +=2
+      result += (days_rented - 2)*1.5 if days_rented > 2
+    when Movie::NEW_RELEASE
+      result += days_rented*3
+    when Movie::CHILDRENS
+      result +=1.5
+      result += (days_rented - 3)*1.5 if days_rented > 3
+    end
+  end
+
+  def frequent_rental_points
+      #新作を借りた場合のレンタルポイントの追加
+      (movie.price_code = Movie::NEW_RELEASE && days_rented > 1) ? 2 : 1
+  end
 end
+
+
